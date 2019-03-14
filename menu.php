@@ -63,7 +63,7 @@ if (strpos($position, 'navbar') === 0) {
 
     if ($position == 'mobile') {
 
-        $attrs['class'][] = "uk-nav-{$theme->get('mobile.menu_style')}";
+        $attrs['class'][] = "uk-nav-{$theme->get('mobile.menu_style')} uk-nav-parent-icon uk-nav-accordion";
         $attrs['class'][] = $theme->get('mobile.menu_center') ? 'uk-nav-center' : '';
 
 
