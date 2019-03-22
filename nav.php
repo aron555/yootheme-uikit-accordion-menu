@@ -62,9 +62,9 @@ foreach ($items as $item) {
             $link['class'] = $item->class;
         }
 
-        $js = "onclick='location.href = \"$item->url\"'";
+        $js = "onclick='window.location.href = \"$item->url\"'";
 
-        $title = "<a{$this->attrs($link)}><span $js>{$icon}{$title}</span></a>";
+        $title = "<a><span $js>{$icon}{$title}</span></a>";
     }
 
     // Children?
