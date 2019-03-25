@@ -40,13 +40,18 @@ foreach ($items as $item) {
             $attrs['class'][] = 'uk-nav-header';
         }
 
-    // Link
+        // Link
     } else {
 
         $link = [];
-
-        if (isset($item->url)) {
-            $link['href'] = "#";
+        if ($children) {
+            if (isset($item->url)) {
+                $link['href'] = "";
+            }
+        } else {
+            if (isset($item->url)) {
+                $link['href'] = $item->url;
+            }
         }
 
         if (isset($item->target)) {
@@ -62,9 +67,15 @@ foreach ($items as $item) {
             $link['class'] = $item->class;
         }
 
-        $js = "onclick='window.location.href = \"$item->url\"'";
+        if ($children) {
+            $js = "onclick='location.href = \"$item->url\"'";
+            $title = "<a{$this->attrs($link)}><span $js>{$icon}{$title}</span></a>";
+        } else {
+            $title = "<a{$this->attrs($link)}>{$icon}{$title}</a>";
+        }
 
-        $title = "<a><span $js>{$icon}{$title}</span></a>";
+
+
     }
 
     // Children?
@@ -74,7 +85,11 @@ foreach ($items as $item) {
 
         $children = ['class' => []];
 
-        if ($level == 1 || $level == 2) {
+        if ($level == 1) {
+            $children['class'][] = 'uk-nav-sub uk-nav-parent-icon uk-nav-accordion';
+        }
+
+        if ($level == 2) {
             $children['class'][] = 'uk-nav-sub uk-nav-parent-icon uk-nav-accordion';
         }
 
