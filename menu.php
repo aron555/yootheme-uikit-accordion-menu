@@ -63,7 +63,12 @@ if (strpos($position, 'navbar') === 0) {
 
     if ($position == 'mobile') {
 
-        $attrs['class'][] = "uk-nav-{$theme->get('mobile.menu_style')} uk-nav-parent-icon uk-nav-accordion";
+        if (array_filter($items, function ($item) { return $item->type !== 'header' && (isset($item->children, $item->url) && $item->url != '#'); })) {
+            $params->set('accordion', true);
+            $attrs['class'][] = "uk-nav-{$theme->get('mobile.menu_style')} uk-nav-parent-icon uk-nav-accordion";
+        } else {
+            $attrs['class'][] = "uk-nav-{$theme->get('mobile.menu_style')}";
+        }
         $attrs['class'][] = $theme->get('mobile.menu_center') ? 'uk-nav-center' : '';
 
 
@@ -74,7 +79,7 @@ if (strpos($position, 'navbar') === 0) {
         $attrs['uk-nav'] = true;
 
     } else {
-
+        $params->set('accordion', true);
         $attrs['class'][] = 'uk-nav-default uk-nav-parent-icon uk-nav-accordion';
 
     }
